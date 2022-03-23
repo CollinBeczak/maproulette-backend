@@ -38,20 +38,20 @@ jobs:
     - run: 'ls'
     - name: Create the dev.conf
       run: |
-        cat > ./conf/dev.conf << EOF 
-        include "application.conf"
-        db.default {
-          url="jdbc:postgresql://localhost:5432/mr_test"
-          username="osm"
-          password="osm"
-        }
-        maproulette {
-          debug=true
-          bootstrap=true
-          super.key="1234"
-          super.accounts=""
-        }
-        EOF
+        touch ./conf/dev.conf
+        echo include "application.conf" >> ./conf/dev.conf
+        echo db.default { >> ./conf/dev.conf
+        echo url="jdbc:postgresql://localhost:5432/mr_test" >> ./conf/dev.conf
+        echo username="osm" >> ./conf/dev.conf
+        echo password="osm" >> ./conf/dev.conf
+        echo } >> ./conf/dev.conf
+        echo maproulette { >> ./conf/dev.conf
+        echo debug=true >> ./conf/dev.conf
+        echo bootstrap=true >> ./conf/dev.conf
+        echo super.key="1234" >> ./conf/dev.conf
+        echo super.accounts="" >> ./conf/dev.conf
+        echo } >> ./conf/dev.conf
+        echo EOF >> ./conf/dev.conf
     - name: Run the integration tests
       env:
         SBT_OPTS: "-Xms512M -Xmx1024M -Xss2M -XX:MaxMetaspaceSize=1024M"
@@ -60,7 +60,7 @@ jobs:
         scheme: http
         apiKey: 1234
       run: |
-          sbt -Dconfig.file=./conf/dev.conf run &
+        sbt -Dconfig.file=./conf/dev.conf run &
         sleep 10
         cd java-client
           host=127.0.0.1 scheme=http apiKey=1234
