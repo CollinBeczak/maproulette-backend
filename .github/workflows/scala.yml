@@ -36,7 +36,22 @@ jobs:
     - name: Run sbt compile
       run: sbt compile
     - run: 'ls'
-
+    - name: Create the dev.conf
+      run: |
+        cat > ./conf/dev.conf << EOF 
+        include "application.conf"
+        db.default {
+          url="jdbc:postgresql://localhost:5432/mr_test"
+          username="osm"
+          password="osm"
+        }
+        maproulette {
+          debug=true
+          bootstrap=true
+          super.key="1234"
+          super.accounts=""
+        }
+        EOF
     - name: Run the integration tests
       run: |
         SBT_OPTS="-Xms512M -Xmx1024M -Xss2M -XX:MaxMetaspaceSize=1024M" API_HOST=127.0.0.1:9000
