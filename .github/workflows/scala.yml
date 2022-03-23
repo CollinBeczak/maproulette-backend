@@ -14,9 +14,9 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_DB: mrdata
-          POSTGRES_USER: mrdbuser
-          POSTGRES_PASSWORD: mrdbpass
+          POSTGRES_DB: mr_test
+          POSTGRES_USER: osm
+          POSTGRES_PASSWORD: som
 
     strategy:
       matrix:
@@ -35,7 +35,7 @@ jobs:
         distribution: 'temurin'
     - name: Run sbt compile
       # The project contains tests but those require a database. So for now, just compile.
-      run: sbt compile
+      run: sbt compile test
     - run: 'ls'
 
 
