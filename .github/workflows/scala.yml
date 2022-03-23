@@ -16,7 +16,7 @@ jobs:
         env:
           POSTGRES_DB: mr_test
           POSTGRES_USER: osm
-          POSTGRES_PASSWORD: som
+          POSTGRES_PASSWORD: osm
 
     strategy:
       matrix:
