@@ -58,13 +58,12 @@ jobs:
         host: 127.0.0.1
         scheme: http
         apiKey: 1234
-      run: |
-        sbt -Dconfig.file=./conf/dev.conf run &
-        sleep 10
-        cd java-client
-          host=127.0.0.1 scheme=http apiKey=1234
-          ./gradlew --info --project-prop runIntegrationTests
-            clean integrationTest
-            --tests '*BatchUploaderIntegrationTest*'
+        run: |
+          sbt -Dconfig.file=./conf/dev.conf run &
+          sleep 10
+          pushd java-client
+          ./gradlew --info --project-prop runIntegrationTests \
+            clean integrationTest \
+            --tests '*BatchUploaderIntegrationTest*' \
             --tests '*ChallengeAPIIntegrationTest*'
 
