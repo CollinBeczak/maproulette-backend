@@ -39,20 +39,18 @@ jobs:
     - name: Create the dev.conf
       run: |
         touch ./conf/dev.conf
-        echo include "application.conf" >> ./conf/dev.conf
-        echo db.default { >> ./conf/dev.conf
-        echo url="jdbc:postgresql://localhost:5432/mr_test" >> ./conf/dev.conf
-        echo username="osm" >> ./conf/dev.conf
-        echo password="osm" >> ./conf/dev.conf
-        echo } >> ./conf/dev.conf
-        echo maproulette { >> ./conf/dev.conf
-        echo debug=true >> ./conf/dev.conf
-        echo bootstrap=true >> ./conf/dev.conf
-        echo super.key="1234" >> ./conf/dev.conf
-        echo super.accounts="" >> ./conf/dev.conf
-        echo } >> ./conf/dev.conf
-        echo EOF >> ./conf/dev.conf
-    - name: Run the integration tests
+        echo 'include "application.conf"' >> ./conf/dev.conf
+        echo 'db.default {' >> ./conf/dev.conf
+        echo '  url="jdbc:postgresql://localhost:5432/mr_test"' >> ./conf/dev.conf
+        echo '  username="osm"' >> ./conf/dev.conf
+        echo '  password="osm"' >> ./conf/dev.conf
+        echo '}' >> ./conf/dev.conf
+        echo 'maproulette {' >> ./conf/dev.conf
+        echo '  debug=true' >> ./conf/dev.conf
+        echo '  bootstrap=true' >> ./conf/dev.conf
+        echo '  super.key="1234"' >> ./conf/dev.conf
+        echo '  super.accounts=""' >> ./conf/dev.conf
+        echo '}' >> ./conf/dev.conf
       env:
         SBT_OPTS: "-Xms512M -Xmx1024M -Xss2M -XX:MaxMetaspaceSize=1024M"
         API_HOST: 127.0.0.1:9000
