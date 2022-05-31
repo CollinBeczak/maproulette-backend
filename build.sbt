@@ -43,28 +43,37 @@ libraryDependencies ++= Seq(
   specs2 % Test,
   filters,
   guice,
-  "org.sangria-graphql"     %% "sangria-play-json"  % "2.0.1",
-  "org.sangria-graphql"     %% "sangria"            % "2.0.0-M1",
-  "com.typesafe.play"       %% "play-json-joda"     % "2.8.1",
-  "com.typesafe.play"       %% "play-json"          % "2.8.1",
-  "org.scalatestplus.play"  %% "scalatestplus-play" % "5.0.0" % Test,
-  "org.webjars"             % "swagger-ui"          % "3.25.0",
-  "org.playframework.anorm" %% "anorm"              % "2.6.5",
-  "org.playframework.anorm" %% "anorm-postgres"     % "2.6.5",
-  "org.postgresql"          % "postgresql"          % "42.2.10",
-  "net.postgis"             % "postgis-jdbc"        % "2.3.0",
-  "joda-time"               % "joda-time"           % "2.10.5",
+  "org.sangria-graphql"     %% "sangria-play-json"  % "2.0.2",
+  "org.sangria-graphql"     %% "sangria"            % "3.0.0",
+  "com.typesafe.play"       %% "play-json-joda"     % "2.9.2",
+  "com.typesafe.play"       %% "play-json"          % "2.9.2",
+  "org.scalatestplus.play"  %% "scalatestplus-play" % "5.1.0" % Test,
+
+  // NOTE: There is a breaking change with swagger-ui starting at v4.1.3 where the 'url'
+  //       parameter is disabled for security reasons.
+  //       See https://github.com/swagger-api/swagger-ui/issues/4872
+  "org.webjars"             % "swagger-ui"          % "4.1.2",
+
+  "org.playframework.anorm" %% "anorm"              % "2.6.10",
+  "org.playframework.anorm" %% "anorm-postgres"     % "2.6.10",
+  "org.postgresql"          % "postgresql"          % "42.3.4",
+  "net.postgis"             % "postgis-jdbc"        % "2021.1.0",
+  "joda-time"               % "joda-time"           % "2.10.14",
   "com.vividsolutions"      % "jts"                 % "1.13",
   "org.wololo"              % "jts2geojson"         % "0.14.3",
-  "org.apache.commons"      % "commons-lang3"       % "3.9",
+  "org.apache.commons"      % "commons-lang3"       % "3.12.0",
   "commons-codec"           % "commons-codec"       % "1.14",
-  "com.typesafe.play"       %% "play-mailer"        % "8.0.0",
-  "com.typesafe.play"       %% "play-mailer-guice"  % "8.0.0",
+  "com.typesafe.play"       %% "play-mailer"        % "8.0.1",
+  "com.typesafe.play"       %% "play-mailer-guice"  % "8.0.1",
   "com.typesafe.akka"       %% "akka-cluster-tools" % "2.6.19",
   "com.typesafe.akka"       %% "akka-cluster-typed" % "2.6.19",
   "com.typesafe.akka"       %% "akka-slf4j"         % "2.6.19",
-  "net.debasishg"           %% "redisclient"        % "3.20"
+  "net.debasishg"           %% "redisclient"        % "3.42"
 )
+
+// Override play-json to 2.9.2 because org.sangria-graphql:sangria-play-json_2.13:2.0.2
+// is pulling in play-json:2.10.0-RC5 and a release candidate is not desired.
+dependencyOverrides += "com.typesafe.play" %% "play-json" % "2.9.2"
 
 resolvers ++= Seq(
   Resolver.bintrayRepo("scalaz", "releases"),
