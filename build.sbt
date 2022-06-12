@@ -43,10 +43,13 @@ libraryDependencies ++= Seq(
   specs2 % Test,
   filters,
   guice,
-  "org.sangria-graphql"     %% "sangria-play-json"  % "2.0.2",
-  "org.sangria-graphql"     %% "sangria"            % "3.0.0",
-  "com.typesafe.play"       %% "play-json-joda"     % "2.9.2",
-  "com.typesafe.play"       %% "play-json"          % "2.9.2",
+
+  // NOTE: Be careful upgrading sangria and play-json as binary incompatiblities can break graphql and the entire UI.
+  //       See the compatibility matrix here https://github.com/sangria-graphql/sangria-play-json
+  "org.sangria-graphql"     %% "sangria-play-json"  % "2.0.1",
+  "org.sangria-graphql"     %% "sangria"            % "2.0.1",
+  "com.typesafe.play"       %% "play-json-joda"     % "2.8.2",
+  "com.typesafe.play"       %% "play-json"          % "2.8.2",
   "org.scalatestplus.play"  %% "scalatestplus-play" % "5.1.0" % Test,
 
   // NOTE: There is a breaking change with swagger-ui starting at v4.1.3 where the 'url'
@@ -73,7 +76,7 @@ libraryDependencies ++= Seq(
 
 // Override play-json to 2.9.2 because org.sangria-graphql:sangria-play-json_2.13:2.0.2
 // is pulling in play-json:2.10.0-RC5 and a release candidate is not desired.
-dependencyOverrides += "com.typesafe.play" %% "play-json" % "2.9.2"
+//dependencyOverrides += "com.typesafe.play" %% "play-json" % "2.9.2"
 
 resolvers ++= Seq(
   Resolver.bintrayRepo("scalaz", "releases"),
